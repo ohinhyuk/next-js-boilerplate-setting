@@ -1,14 +1,10 @@
+import { ClientGreeting } from "./client-greeting";
+import { HydrateClient, trpc } from "@/app/lib/trpc/server";
 export default async function Home() {
-  const data = await fetch("http://localhost:3000/api").then((res) =>
-    res.json()
-  );
-
-  console.log(data);
-
+  void trpc.hello.prefetch({ text: "world" });
   return (
-    <div>
-      <h1>Home</h1>
-      <p>{data.hello}</p>
-    </div>
+    <HydrateClient>
+      <ClientGreeting />
+    </HydrateClient>
   );
 }
